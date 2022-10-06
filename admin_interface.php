@@ -37,7 +37,7 @@
             <ul class="nav navbar-nav navbar-right">
                 
                 <li class="propClone"><a href="admin_interface.php">Employee Leave Requests</a></li>
-                <li class="propClone"><a href="update_policy.php">Leave Policy</a></li>
+                <li class="propClone"><a href="new_questionnaire.php">Add Questionnaire</a></li>
                 <li class="propClone"><a href="employee_details.php">Manage Employee Details</a></li>
                 <li class="propClone"><a href="logout.php" name="logout">Logout</a></li>
             </ul>

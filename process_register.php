@@ -13,7 +13,6 @@
 	 	$password_1 = $_POST['pass1'];
 	 	$password_2 = $_POST['pass2'];
 			 	
-	 	if (!empty($email) && !empty($firstname) && !empty($lastname) && !empty($employee) && !empty($department) && !empty($period_joined) && !empty($password_1) && !empty($password_2)) {
 	 		
 	 	if ($password_1 === $password_2) {
 	 	 
@@ -29,20 +28,17 @@
 	 		    $_SESSION['message'] = "successfully registered";
 				$_SESSION['msg_type'] = "success"; 
 	 		     header('location: login.php');
+	 		
 	 	}else{
 	 			$_SESSION['email'] = $email;
 	 		    $_SESSION['message'] = "registeration failed";
 				$_SESSION['msg_type'] = "danger";
 	 		 header('location: register.php');
+	 		
 	 	}
 	 	
-	 }else{
-	 			$_SESSION['email'] = $email;
-	 		    $_SESSION['message'] = "registeration failed";
-				$_SESSION['msg_type'] = "danger";
-	 			header('location: register.php');
-	 	}		
-}
+	 }		
+
 
 	
 ?>

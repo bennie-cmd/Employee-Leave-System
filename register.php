@@ -147,7 +147,7 @@ include 'process_register.php';
 			<div class="col-lg-4 mb-5 mb-lg-0">
 			<div id="form-group">
             <header class="align-center" style="font-size: 20px;">Email address:</header> 
-         <input class="form-control" type="text" name="email" placeholder="abcd@gmail.com" style="width:250px;">
+         <input class="form-control" type="text" name="email" placeholder="abcd@gmail.com" style="width:250px;" required>
             </div>
             <br>
          </div>
@@ -155,7 +155,7 @@ include 'process_register.php';
 			<div class="col-lg-4 mb-5 mb-lg-0">
 			<div id="form-group">
             <header class="align-center" style="font-size: 20px;">Firstname:</header> 
-         <input class="form-control" type="text" name="firstname" placeholder="Type your firstname" style="width:250px;">
+         <input class="form-control" type="text" name="firstname" placeholder="Type your firstname" style="width:250px;" required>
             </div>
             <br>
          </div>
@@ -163,7 +163,7 @@ include 'process_register.php';
          	<div class="col-lg-4 mb-5 mb-lg-0">
             <div id="form-group">
             <header class="align-center" style="font-size: 20px;">Lastname:</header> 
-         <input class="form-control" type="text" name="lastname" placeholder="Type your Lastname" style="width:250px;">
+         <input class="form-control" type="text" name="lastname" placeholder="Type your Lastname" style="width:250px;" required>
             </div>
          	</div>
          </div>
@@ -172,7 +172,7 @@ include 'process_register.php';
          	<div class="col-lg-4 mb-5 mb-lg-0">
             <div id="form-group">
             <header class="align-center" style="font-size: 20px;">Employee ID:</header> 
-         <input class="form-control" type="text" name="employee_id" placeholder="Type your ID" style="width:250px;">
+         <input class="form-control" type="text" name="employee_id" placeholder="Type your ID" style="width:250px;" required>
             </div>
          	</div>
         	
@@ -180,7 +180,7 @@ include 'process_register.php';
             <div id="form-group">
             <header class="align-center" style="font-size: 20px;">Department:</header> 
             <div class="form-control">
-         <select class="dropdown" name="department">
+         <select class="dropdown" name="department" required>
          	<option>Finance </option>
          	<option>Production </option>
          	<option>Reasearch and Developing</option>
@@ -192,7 +192,7 @@ include 'process_register.php';
          	<div class="col-lg-4 mb-5 mb-lg-0">
             <div id="form-group">
             <header class="align-center" style="font-size: 20px;">Period Joined:</header> 
-         <input class="form-control" type="date" name="period_joined" placeholder="Type your username" style="width:250px;">
+         <input class="form-control" type="date" name="period_joined" placeholder="Type your username" style="width:250px;" required>
             </div>
          	</div>
 
@@ -203,14 +203,14 @@ include 'process_register.php';
          	<div class="col-md-4 mb-lg-0">
             <div id="form-group">
             <header class="align-center" style="font-size: 20px;">Password:</header>
-         <input class="form-control" type="Password" name="pass1" placeholder="Type your password" style="width:250px;">
+         <input class="form-control" type="Password" name="pass1" placeholder="Type your password" style="width:250px;" required>
             </div>
          	</div>
         	
          	<div class="col-md-4">
             <div id="form-group">
             <header class="align-center" style="font-size: 20px;">Repeat Password:</header>
-         <input class="form-control" type="Password" name="pass2" placeholder="Type your password" style="width:250px;">
+         <input class="form-control" type="Password" name="pass2" placeholder="Type your password" style="width:250px;" required>
             </div>
          	</div>
      		 </div>

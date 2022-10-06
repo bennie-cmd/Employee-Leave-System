@@ -23,13 +23,13 @@
 			<i class="fa fa-bars"></i>
 			<span class="sr-only">Toggle navigation</span>
 			</button>
-			<a href="index.php" class="navbar-brand brand"> leave system </a>
+			<a href="index.php" class="navbar-brand brand"> KPI system + Leave management</a>
 		</div>
 		<div id="navbar-collapse-02" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav navbar-right">
 				<li class="propClone"><a href="index.php">Home</a></li>
 				<li class="propClone"><a href="leave_page.php">Leave Request</a></li>
-				<li class="propClone"><a href="leave_policy.php">Leave Policy</a></li>
+				<!-- <li class="propClone"><a href="leave_policy.php">Leave Policy</a></li> -->
 				<li class="propClone"><a href="Employee_check.php">Unavailable employees</a></li>
 				<li class="propClone"><a href="contact.php">Contact Management</a></li>
 			</ul>
@@ -42,10 +42,10 @@
 			<div class="col-md-12 text-center">
 				<div class="text-homeimage">
 					<div class="maintext-image" data-scrollreveal="enter top over 1.5s after 0.1s">
-						 Employee leave management
+						 Lecturer Performance Management 
 					</div>
 					<div class="subtext-image" data-scrollreveal="enter bottom over 1.7s after 0.3s">
-						 Human Resources Affiliated 
+						 Leave management Affiliated 
 					</div>
 				</div>
 			</div>
@@ -73,7 +73,7 @@
 			<div class="col-md-4 editContent">
 				<div class="col">
 					<!-- <span class="numberstep"><i class="fa fa-gift"></i></span> -->
-					<h3 class="numbertext">Request For Leave</h3>
+					<h3 class="numbertext">How To Answer Questionnaier</h3>
 					<p>
 						 Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
 					</p>
@@ -164,7 +164,7 @@
 	<div class="row">
 		<div class="col-sm-10 col-sm-offset-1">
 			<div class="item" data-scrollreveal="enter top over 0.4s after 0.1s">
-				<h1 class="callactiontitle"> Make a Leave Request Today <!-- <span class="callactionbutton"><i class="fa fa-gift"></i> Request Now</span> -->
+				<h1 class="callactiontitle"> Make a Leave Request Today And Check Performance <!-- <span class="callactionbutton"><i class="fa fa-gift"></i> Request Now</span> -->
 				</h1>
 			</div>
 		</div>

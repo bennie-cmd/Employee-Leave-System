@@ -1,0 +1,169 @@
+<?php 
+   // include 'process_login.php';
+
+   //  if (!isset($_SESSION['admin_id'])) {
+   //      header('location:login.php');
+   //  }
+?>
+<?php include 'db_connect.php' ?>
+<?php
+if(isset($_GET['id'])){
+    $qry = $conn->query("SELECT * FROM tblquestions where id = ".$_GET['id'])->fetch_array();
+foreach($qry as $k => $v){
+    $$k = $v;
+}
+}
+
+?>
+<!DOCTYPE html>
+<head>
+    <style type="text/css">
+          .callout.callout-info {
+          border-left-color: #117a8b;
+        }
+        .left{
+         position: absolute;
+        left: 0px;
+        width: 280px;
+        height: 200px;
+         border: 3px solid #73AD21;
+        padding: 10px;
+        }
+        .createbtn{
+        position: absolute;
+        left: 200px;
+        bottom: 0px;
+
+        }
+    </style>
+</head>
+<div class="container-fluid">
+
+    <form method="POST" action="action.php">
+    
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-sm-6 border-right">
+                        <input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
+                        <input type="hidden" name="sid" value="<?php echo isset($_GET['sid']) ? $_GET['sid'] : '' ?>">
+                        <div class="form-group">
+                            <label for="" class="control-label">Question</label>
+                            <textarea name="question" id="" cols="30" rows="4" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label">Question Answer Type</label>
+                            <select name="type" id="type" class="custom-select custom-select-sm">
+                                <option value="radio_opt">Single Answer/Radio Button</option>
+                                
+                            </select>
+                        </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <b>Preview</b>
+                    <div class="preview">
+                        
+                            <div class="callout callout-info">
+                            
+                              <table width="100%" class="table">
+                                <colgroup>
+                                    <col width="10%">
+                                    <col width="80%">
+                                    <col width="10%">
+                                </colgroup>
+                                <thead>
+                                    <tr class="">
+                                        <th class="text-center"></th>
+
+                                        <th class="text-center">
+                                            <label for="" class="control-label">Label</label>
+                                        </th>
+                                        <th class="text-center"></th>
+                                    </tr>
+                                </thead>
+                                  </table>
+                              <div class="row">
+                              <div class="col-sm-12 text-center">
+                                <button class="btn btn-sm btn-flat btn-default" type="button" onclick="<?php echo $type ?>($(this))"><i class="fa fa-plus"></i> Add</button>
+                              </div>
+                              </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+            </div>
+
+        </div>
+        
+</div>
+<div class="createbtn">
+            <button class="btn btn-primary mr-2" type="submit" name="create">
+                                CREATE
+                            </button>
+        </div>
+</form>
+        <!-- //////////This area is for the radio option clones/////////// -->
+<div id="radio_opt_clone" style="display: none">
+    <div class="callout callout-info">
+      <table width="100%" class="table">
+        <colgroup>
+            <col width="10%">
+            <col width="80%">
+            <col width="10%">
+        </colgroup>
+        <thead>
+            <tr class="">
+                <th class="text-center"></th>
+
+                <th class="text-center">
+                    <label for="" class="control-label">Label</label>
+                </th>
+                <th class="text-center"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="">
+                <td class="text-center">
+                    <div class="icheck-primary d-inline" data-count = '1'>
+                        <input type="radio" id="radioPrimary1" name="radio" checked="">
+                        <label for="radioPrimary1">
+                        </label>
+                    </div>
+                </td>
+
+                <td class="text-center">
+                    <input type="text" class="form-control form-control-sm check_inp"  name="label">
+                </td>
+                <td class="text-center"></td>
+            </tr>
+            <tr class="">
+                <td class="text-center">
+                    <div class="icheck-primary d-inline" data-count = '2'>
+                        <input type="radio" id="radioPrimary2" name="radio" >
+                        <label for="radioPrimary2">
+                        </label>
+                    </div>
+                </td>
+               <!--  //////////Naming the labels in text//////////// -->
+                <td class="text-center">
+                    <input type="text" class="form-control form-control-sm check_inp"  name="label">
+                </td>
+                <td class="text-center"></td>
+            </tr>
+        </tbody>
+      </table>
+      <div class="row">
+      <div class="col-sm-12 text-center">
+        <button class="btn btn-sm btn-flat btn-default" type="button" onclick="new_radio($(this))"><i class="fa fa-plus"></i> Add</button>
+      </div>
+      </div>
+    </div>
+</div>
+    
+<script src="js/jquery-.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/anim.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>

@@ -1,5 +1,5 @@
 <?php
-		include'process_login.php';
+		include'process_stdlogin.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -19,7 +19,14 @@
             height:300px;
             border:1px solid black;
         }*/
-
+        
+        header .navbar-white {
+			background:#222;
+			color:#999;
+		}
+		header .navbar-white a {
+			color: ghostwhite;
+		}
         input[type="text"] {
              display: block;
              margin : 0 auto;
@@ -84,7 +91,7 @@
 			<div class="col-md-12 text-center">
 				<div class="text-pageheader">
 					<div class="subtext-image" data-scrollreveal="enter bottom over 1.7s after 0.1s">
-						 LOGIN AS LECTURER
+						 LOGIN AS STUDENT
 					</div>
 				</div>
 			</div>
@@ -121,7 +128,7 @@
        			 <?php endif ?>
        			 
 	<div class="beau-border">	
-			<form method="POST" action="process_login.php">
+			<form method="POST" action="process_stdlogin.php">
 		<!-- the container holding the login text fields-->	
 
 			<div id="form-group">
@@ -156,7 +163,7 @@
 	<div class="col-sm-10 col-sm-offset-1">
 		<!-- <div class="item" data-scrollreveal="enter top over 0.4s after 0.1s"> -->
 			<h1 class="callactiontitle"> Do You Have an Account?<!--  <span class="callactionbutton"> -->
-				<a href="register.php" class="homebrowseitems"> Signup
+				<a href="register_std.php" class="homebrowseitems"> Signup
 				<div class="homebrowseitemsicon">
 					<i class="fa fa-star fa-spin"></i>
 				</div>
