@@ -32,7 +32,7 @@
 			<i class="fa fa-bars"></i>
 			<span class="sr-only">Toggle navigation</span>
 			</button>
-			<a href="index.html" class="navbar-brand brand"> Leave Policy</a>
+			<a href="index.html" class="navbar-brand brand"> Student Response</a>
 		</div>
 		<div id="navbar-collapse-02" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav navbar-right">
@@ -51,7 +51,7 @@
 			<div class="col-md-12 text-center">
 				<div class="text-pageheader">
 					<div class="subtext-image" data-scrollreveal="enter bottom over 1.7s after 0.0s">
-						 Leave Policy
+						 		Student Responses
 					</div>
 				</div>
 			</div>
@@ -65,7 +65,7 @@
 <div class="container toparea">
 	<div class="underlined-title">
 		<div class="editContent">
-			<h1 class="text-center latestitems">Below are the Leave Policies</h1>
+			<h1 class="text-center latestitems">Below are the results</h1>
 		
 			<?php if (isset($_SESSION['message'])):?>
 		<div class="alert alert-<?=$_SESSION['msg_type']?>">
@@ -93,56 +93,16 @@
 		</div>
 	</div>
 	
-		
-			<div class="card-box mb-30">
-					<table class="data-table table stripe hover nowrap" style="color: black;">
-						<thead>
-							<tr>
-								<th class="table-plus">LEAVE ID</th>
-								<th>LEAVE TYPE</th>
-								<th>LEAVE SPECIFIED DAYS</th>
-								<th>POLICY</th>
-								<th>DATE CREATED</th>
-								
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								
-								 <?php 
-								$mysqli = new mysqli('localhost', 'root','','employee_ls') or die(mysqli_error($mysqli));
-								 										
-					$result=mysqli_query($mysqli,"SELECT * FROM leave_types");
-											
-                                    $cnt=1;
-             while ($row=mysqli_fetch_array($result)) {
-?> 
-								  <td><?php echo $row['id'];?></td>
-                  <td><?php echo $row['name'];?></td>
-                  <td><?php echo $row['total_days'];?></td>
-                  <td><?php echo $row['policy'];?></td>
-                  <td><?php echo $row['date_created'];?></td>
-							</tr>
-							<?php 
-						$cnt=$cnt+1;
-										}?>
+	<canvas id="chart" width="100" height="50"></canvas>
 
-									</tbody></table>
-		</div>
-
-				 			
-
-						</br>
-					
-			</div>
 		
 		<div class="col-md-4">
-			<a class="btn btn-buynow" href="leave_page.php">APPLY-FOR-LEAVE</a>
+			<a class="btn btn-buynow" href="leave_page.php">Check Bonuses</a>
 			<div class="properties-box">
 				<ul class="unstyle">
-					<li><b class="propertyname">Default Available days:</b> 30</li>
-					<li><b class="propertyname">The available days reduce accordingly.</b> </li>
-					<li><b class="propertyname">Fill your leave form, by selecting the type of leave, beginning and ending date.</b> </li>
+					<li><b class="propertyname">Responces will appear</b>-once questionnaire is submitted </li>
+					<li><b class="propertyname">Number of answered questionnaires:</b> num </li>
+					<li><b class="propertyname"></b> </li>
 				</ul>
 			</div>
 		</div>
@@ -192,6 +152,45 @@
 <script src="js/jquery-.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/anim.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<script>
+	
+		const ctx = document.getElementById('chart').getContext('2d');
+		const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: 'Different Questionnaire Set Performance',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+	
+</script>
 </body>
 </html>

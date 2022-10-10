@@ -141,6 +141,7 @@
                 Login
               </button>
       </form>
+      <h1 style="font-size: 12px;">Ensure to login as the respecsted user. This login is for lectures only.</h1>
   </div>
 		
 		<!-- End of login interf -->

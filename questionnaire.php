@@ -14,6 +14,7 @@
 <meta name="generator" content="">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="css/style.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,600,700" rel="stylesheet">
@@ -26,6 +27,25 @@
         header .navbar-white a {
             color: ghostwhite;
         }
+        .border {
+        font-size: 1.6rem;
+        display: grid;
+        place-items: center;
+        min-height: 200px;
+        border: 8px solid;
+        padding: 1rem;
+        }
+        .radial-repeating {
+        border-width: 20px;
+        border-image: repeating-radial-gradient(
+            circle at 10px,
+            turquoise,
+            pink 2px,
+            greenyellow 4px,
+            pink 2px
+        )
+        1;
+}
 
 </style>
 </head>
@@ -105,52 +125,41 @@
     <div>
             <form method="POST" action="">
        <?php include 'db_connect.php' ?>
-<?php
-             $user=$_SESSION['std_email'];
-        $conn = new mysqli('localhost', 'root','','employee_ls') or die(mysqli_error($conn));
-         $ret=mysqli_query($conn,"SELECT * FROM tblstd_registration WHERE email='$user'");
-                          $cnt=1;
-while ($row=mysqli_fetch_array($ret)) {
-?>
-    <?php echo $row['frstname'];?>
-<?php 
-                        $cnt=$cnt+1;
-                                        }?>
+
 <div class="col-lg-12">
     <div class="d-flex w-100 justify-content-center align-items-center mb-2">
-        <label for="" class="control-label">Find Survey</label>
-        <div class="input-group input-group-sm col-sm-5">
+        <label for="" class="control-label">Find Questionnaire</label>
+        <div style="align-items: center;">
           <input type="text" class="form-control" id="filter" placeholder="Enter keyword...">
           <span class="input-group-append">
-            <button type="button" class="btn btn-primary btn-flat" id="search">Searh</button>
+            <button type="button" class="btn btn-primary btn-flat" id="search">Search</button>
           </span>
         </div>
     </div>
-    <div class=" w-100" id='ns' style="display: none"><center><b>No Result.</b></center></div>
+   
     <div class="row">
         <?php 
-        $survey = $conn->query("SELECT * FROM tblquestionnaire");
+        $avlbl_date= date("y-m-d");
+        $survey = $conn->query("SELECT * FROM tblquestionnaire Where `end_date`>= $avlbl_date");
+
         //--original ("SELECT * FROM survey_set where '".date('Y-m-d')."' between date(start_date) and date(end_date) order by rand() ")
         while($row=$survey->fetch_assoc()):
         ?>
         <div class="col-md-3 py-1 px-1 survey-item">
+            <div class="border radial-repeating">
             <div class="card card-outline card-primary">
               <div class="card-header">
                 <h3 class="card-title"><?php echo ucwords($row['title']) ?></h3>
 
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                </div>
+                
               </div>
               <div class="card-body" style="display: block;">
                <?php echo $row['description'] ?>
                <div class="row">
                 <hr class="border-primary">
                 <div class="d-flex justify-content-center w-100 text-center">
-                    <?php if(!isset($ans[$row['id']])): ?>
-                        <a href="index.php?page=answer_survey&id=<?php echo $row['id'] ?>" class="btn btn-sm bg-gradient-primary"><i class="fa fa-pen-square"></i> Take Survey</a>
+                    <?php if(!isset($ans[$row['id']])):?>
+                        <a href="./answer_page.php?page=new_answer&id=<?php echo $row['id'] ?>" class="btn btn-sm bg-gradient-primary"><i class="fa fa-pencil" style="font-size: 20px;"></i> Take Survey</a>
                     <?php else: ?>
                         <p class="text-primary border-top border-primary">Done</p>
                     <?php endif; ?>
@@ -158,6 +167,7 @@ while ($row=mysqli_fetch_array($ret)) {
                </div>
               </div>
             </div>
+        </div>
         </div>
     <?php endwhile; ?>
     </div>
@@ -192,9 +202,12 @@ while ($row=mysqli_fetch_array($ret)) {
         return false;
         }
     })
+
 </script>
             </form>
-    </div>        
+    </div> 
+    </div>
+    </div>      
 
 
 <!-- CALL TO ACTION =============================-->

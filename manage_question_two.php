@@ -8,7 +8,7 @@
 <?php include 'db_connect.php' ?>
 <?php
 if(isset($_GET['id'])){
-    $qry = $conn->query("SELECT * FROM tblquestions where id = ".$_GET['id'])->fetch_array();
+    $qry = $conn->query("SELECT * FROM tblquestionnaire where id = ".$_GET['id'])->fetch_array();
 foreach($qry as $k => $v){
     $$k = $v;
 }
@@ -41,6 +41,7 @@ foreach($qry as $k => $v){
     <form method="POST" action="process_manage_question.php">
         <div class="col-lg-12">
             <div class="row">
+
                 <div class="col-sm-6 border-right">
                         <input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
                         <input type="hidden" name="sid" value="<?php echo isset($_GET['sid']) ? $_GET['sid'] : '' ?>">
