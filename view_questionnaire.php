@@ -318,7 +318,8 @@ foreach($qry as $k => $v){
                         
                          <?php
                          include 'db_connect.php'; 
-        $answers = $conn->query("SELECT distinct(user_id) from tblanswer where questionnaire_id ={$id}")->num_rows;
+        $answers = $conn->query("SELECT distinct(user_id) from tblanswer where questionnaire_id ={$id}");
+        
 
                         ?>
                         <p>Have Taken: <b><?php echo number_format($answers) ?></b></p>
@@ -404,6 +405,7 @@ foreach($qry as $k => $v){
                                 if($row['type'] == 'radio_opt'):
                                     $arr = json_decode($row['frm_option'], true);
                                     foreach($arr as $k => $v):
+                                        
                             ?>
                             <div class="icheck-primary">
                                 <input type="radio" id="option_<?php echo $k ?>" name="answer[<?php echo $row['id'] ?>]" value="<?php echo $k ?>" checked="">

@@ -1,6 +1,7 @@
 <?php 
     include 'process_stdlogin.php';
        if (!isset($_SESSION['std_email'])) {
+        $_SESSION['std_id'];
         header('location:login.php');
     }
   ?>
@@ -66,9 +67,9 @@
         <div id="navbar-collapse-02" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 
-                <li class="propClone"><a href="admin_interface.php">Employee Leave Requests</a></li>
+               <!--  <li class="propClone"><a href="admin_interface.php">Employee Leave Requests</a></li>
                 <li class="propClone"><a href="update_policy.php">Leave Policy</a></li>
-                <li class="propClone"><a href="employee_details.php">Manage Employee Details</a></li>
+                <li class="propClone"><a href="employee_details.php">Manage Employee Details</a></li> -->
                 <li class="propClone"><a href="logout.php" name="logout">Logout</a></li>
             </ul>
         </div>
@@ -123,20 +124,53 @@
         </div>
     </div>
     <div>
-            <form method="POST" action="">
+            <form method="POST" action="#lecturer">
        <?php include 'db_connect.php' ?>
 
 <div class="col-lg-12">
     <div class="d-flex w-100 justify-content-center align-items-center mb-2">
-        <label for="" class="control-label">Find Questionnaire</label>
-        <div style="align-items: center;">
-          <input type="text" class="form-control" id="filter" placeholder="Enter keyword...">
-          <span class="input-group-append">
-            <button type="button" class="btn btn-primary btn-flat" id="search">Search</button>
-          </span>
+        
+          <?php
+
+            // $type = "employee";
+           $lec = ("SELECT * FROM register where user_type != 'admin' ");
+            $que =mysqli_query($conn, $lec) or die(mysqli_error($conn));
+               while($result=mysqli_fetch_array($que)):
+            ?>
+            <!-- <select id="lec_dropd">
+                <option value="<?php echo $result['firstname'];?>"></option>
+            </select> -->
+            
+            <?php ?>
+          <?php endwhile?>
+
         </div>
     </div>
-   
+   <!-- ///total number of questionnaires/// -->
+   <div class="info-box-content">
+                <span class="info-box-text">Total Questionnaires: </span>
+                 <span class="info-box-number">
+                  <?php echo $conn->query("SELECT * FROM tblquestionnaire")->num_rows; ?>
+                </span>
+    </div>
+    <!-- ///total number of questionnaires taken/// -->
+    <div class="info-box-content">
+                <span class="info-box-text">Total questionnaires Taken:</span>
+                <span class="info-box-number">
+                  <?php
+                  // echo $_SESSION['std_id'];
+                  // $email = $_SESSION['std_email'];
+                  echo $conn->query("SELECT distinct(questionnaire_id) from tblanswer WHERE 'std_admi_number' ={$_SESSION['std_id']}")->num_rows;
+                // if ($result=mysqli_query($conn,$sql))
+                // {
+                    
+                //     $rowcount=mysqli_num_rows($result);
+                //     echo $rowcount;
+                // }
+                  ?>
+                    
+                </span>
+              </div>
     <div class="row">
         <?php 
         $avlbl_date= date("y-m-d");
@@ -216,7 +250,7 @@
     <div class="row">
         <div class="col-sm-10 col-sm-offset-1">
             <div class="item" data-scrollreveal="enter top over 0.4s after 0.1s">
-                <h1 class="callactiontitle">Mark as read then consult the leave committee for action<span class="callactionbutton"><i class="fa fa-gift"></i> NICE DAY</span>
+                <h1 class="callactiontitle">Select the questionnaire set and proceed<span class="callactionbutton"><i class="fa fa-gift"></i> NICE DAY</span>
                 </h1>
             </div>
         </div>

@@ -150,7 +150,24 @@ I've added a few comments on why we're using certain properties
       <div class="col-md-4">
          <div class="card card-outline card-primary">
             <div class="card-header">
-               <h3 class="card-title"><b>Survey Details</b></h3>
+               <h3 class="card-title"><b>Questionnaire Details</b></h3>
+               <?php if (isset($_SESSION['message'])):?>
+      <div class="alert alert-<?=$_SESSION['msg_type']?>">
+           <?php
+             echo $_SESSION['message'];
+             unset($_SESSION['message']);
+           ?>
+          </div>
+          <?php endif ?>
+        
+          <?php 
+              if (isset($_POST['logout'])) {
+                $_SESSION['message'] = "Logout successful";
+                $_SESSION['msg_type'] = "danger"; 
+                header("location: index.php");
+
+              }
+          ?>
             </div>
             <div class="card-body p-0 py-2">
                <div class="thing">
@@ -180,6 +197,19 @@ I've added a few comments on why we're using certain properties
             <div class="card-body ui-sortable">
 <!--                ////////passing student responces to be stored in the answer database////////
  -->           
+               <label>Select you respective lecturer: </label>
+        <select name="lec" style="">
+        <option value="">select lecturer...</option>
+        <option value="manushi">manushi patel</option>
+        <option value="bond">bond inc</option>
+        <option value="jane">jane alice</option>
+        <option value="james">james ouko</option>
+        <option value="new">new employee</option>
+        <option value="jemini">jemini moon</option>
+        <option value="benjamin">benjamin otieno</option>
+        
+        </select>
+        <br>
                <?php
                $std_email = $_SESSION['std_email'];
                   $sql = "SELECT * FROM tblstd_registration where std_email = '$std_email'";
@@ -202,9 +232,11 @@ I've added a few comments on why we're using certain properties
                      <?php
                         if($row['type'] == 'radio_opt'):
                            foreach(json_decode($row['frm_option']) as $k => $v):
+                              
                      ?>
                      <div class="icheck-primary">
-                              <input type="radio" name="ans_radio" value="<?php echo $k?>" >
+                              <input type="radio" name="answer[<?php echo $row['id'] ?>][]" value="<?php echo $v ?>">
+                              
                               <label for="option_<?php echo $k ?>"><?php echo $v ?></label>
                            </div>
                         <?php endforeach; ?>
@@ -212,13 +244,13 @@ I've added a few comments on why we're using certain properties
                            foreach(json_decode($row['frm_option']) as $k => $v):
                      ?>
                      <div class="icheck-primary">
-                              <input type="checkbox" name="ans_checkbox" value="" >
+                              <input type="checkbox" id="option_<?php echo $k ?>" name="answer[<?php echo $row['id'] ?>][]" value="<?php echo $v ?>" >
                               <label for="option_<?php echo $k ?>"><?php echo $v ?></label>
                            </div>
                         <?php endforeach; ?>
-                  <?php else: ?>
+                  <?php elseif($row['type'] == 'textfield_s'): ?>
                      <div class="form-group">
-                        <textarea name="ans_text" id="" cols="30" rows="4" class="form-control" placeholder="Write Something Here..." ></textarea>
+                        <textarea type="text" name="inputtext" cols="30" rows="4" class="form-control" placeholder="Write Something Here..." ></textarea>
                      </div>
                   <?php endif; ?>
                   </div>   
@@ -228,7 +260,7 @@ I've added a few comments on why we're using certain properties
             </div>
             <div class="card-footer border-top border-success">
                <div class="d-flex w-100 justify-content-center">
-                  <button class="btn btn-success" type="submit" name="answer">Submit Answer</button>
+                  <button class="btn btn-success" type="submit" name="ans">Submit Answer</button>
                   <button class="btn btn-danger" type="button" onclick="location.href = 'questionnaire.php?page=questionnaire.php'">Cancel</button>
                </div>
             </div>
@@ -241,22 +273,3 @@ I've added a few comments on why we're using certain properties
 </body>
 </html>
 
-<script>
-   $('#manage-survey').submit(function(e){
-      e.preventDefault()
-      start_load()
-      $.ajax({
-         url:'action=process_answer.php'
-         method:'POST',
-         data:$(this).serialize(),
-         success:function(resp){
-            if(resp == 1){
-               alert_toast("Thank You.",'success')
-               setTimeout(function(){
-                  location.href = 'index.php?page=survey_widget'
-               },2000)
-            }
-         }
-      })
-   })
-</script>

@@ -93,8 +93,14 @@
 		</div>
 	</div>
 	
-	<canvas id="chart" width="100" height="50"></canvas>
-
+	<div class="row">
+		<div class="col-lg-8">
+	<canvas id="chart" width="200" height="70"></canvas>
+		</div>
+		<div class="col-md-4">
+			<?php echo "another chart"?>
+		</div>
+	</div>
 		
 		<div class="col-md-4">
 			<a class="btn btn-buynow" href="leave_page.php">Check Bonuses</a>
@@ -147,7 +153,17 @@
 		</div>
 	</div>
 </div>
+<?
+	include 'db_connect.php';
+	$query = $conn->query("SELECT question_id, answer FROM tblanswer GROUP BY question_id");
+	print_r($query);
+	foreach($query as $data)
+	{
+		$question_id[] = $data['question_id'];
+		$answer[] = $data['answer'];
+	}
 
+php?>
 <!-- Load JS here for greater good =============================-->
 <script src="js/jquery-.js"></script>
 <script src="js/bootstrap.min.js"></script>
@@ -159,7 +175,7 @@
 		const myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: <?php echo json_encode($questionnaire_id) ?>,
         datasets: [{
             label: 'Different Questionnaire Set Performance',
             data: [12, 19, 3, 5, 2, 3],
@@ -190,7 +206,17 @@
         }
     }
 });
-	
+	const labels = Utils.months({count: 7});
+const data = {
+  labels: labels,
+  datasets: [{
+    label: 'My First Dataset',
+    data: [65, 59, 80, 81, 56, 55, 40],
+    fill: false,
+    borderColor: 'rgb(75, 192, 192)',
+    tension: 0.1
+  }]
+};
 </script>
 </body>
 </html>
