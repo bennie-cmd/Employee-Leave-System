@@ -4,7 +4,17 @@
         $_SESSION['std_id'];
         header('location:login.php');
     }
-  ?>
+   include 'db_connect.php';
+
+$mail = $_SESSION['std_email'];
+$query = "SELECT distinct(questionnaire_id) from tblanswer where std_email = '$mail'";
+$answers = mysqli_query($conn, $query);
+$ans = array();
+while($row=$answers->fetch_assoc()){
+    $ans[$row['questionnaire_id']] = 1;
+}
+?>
+
 
    
 <!DOCTYPE html>
@@ -158,16 +168,16 @@
                 <span class="info-box-text">Total questionnaires Taken:</span>
                 <span class="info-box-number">
                   <?php
-                  // echo $_SESSION['std_id'];
-                  // $email = $_SESSION['std_email'];
-                  echo $conn->query("SELECT distinct(questionnaire_id) from tblanswer WHERE 'std_admi_number' ={$_SESSION['std_id']}")->num_rows;
-                // if ($result=mysqli_query($conn,$sql))
-                // {
-                    
-                //     $rowcount=mysqli_num_rows($result);
-                //     echo $rowcount;
-                // }
-                  ?>
+                  include 'db_connect.php';
+                    $point=10;
+                    $word= "awesome";
+                    $mail = $_SESSION['std_email'];
+                    $qu= "SELECT COUNT(DISTINCT `questionnaire_id`) FROM `tblanswer` WHERE `std_email` = '$mail'";
+                    $res = mysqli_query($conn, $qu);
+                    $row = mysqli_fetch_assoc($res);
+                    $decode = implode(" ",$row);
+                    print_r($decode);?>
+                  
                     
                 </span>
               </div>

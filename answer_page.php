@@ -200,13 +200,13 @@ I've added a few comments on why we're using certain properties
                <label>Select you respective lecturer: </label>
         <select name="lec" style="">
         <option value="">select lecturer...</option>
-        <option value="manushi">manushi patel</option>
-        <option value="bond">bond inc</option>
-        <option value="jane">jane alice</option>
-        <option value="james">james ouko</option>
-        <option value="new">new employee</option>
-        <option value="jemini">jemini moon</option>
-        <option value="benjamin">benjamin otieno</option>
+        <option value="manushi@gmail.com">manushi patel</option>
+        <option value="bondinc13@gmail.com">bond inc</option>
+        <option value="jane@gmail.com">jane alice</option>
+        <option value="jamesouko@gmail.com">james ouko</option>
+        <option value="newemployee@gmail.com">new employee</option>
+        <option value="jemini@gmail.com">jemini moon</option>
+        <option value="benjamin@gmail.com">benjamin otieno</option>
         
         </select>
         <br>

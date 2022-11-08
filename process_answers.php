@@ -8,6 +8,14 @@ if (isset($_POST['ans'])) {
 	    session_start();
 		extract($_POST);
 
+		// //line for checking if the lec's email exists together with the 
+		// 	$result = mysql_query("SELECT id FROM mytable WHERE city = 'c7'");
+		// if(mysql_num_rows($result) == 0) {
+  //    // row not found, do stuff...
+		// 	} else {
+  //   // do other stuff...
+		// 		}
+
 			foreach($qid as $k => $v){
 
 				$data = "questionnaire_id=$questionnaire_id";

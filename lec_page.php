@@ -2,6 +2,7 @@
     include 'process_login.php';
 
     if (!isset($_SESSION['email'])) {
+    	$_SESSION['firstname'];
     	$_SESSION['message'] = "you must login first";
       $_SESSION['msg_type'] = "danger"; 
     	header('location:login.php');
@@ -93,28 +94,41 @@
 		</div>
 	</div>
 	
-	<div class="row">
+	<!-- ///Charts/// -->
+	
 		<div class="col-lg-8">
-	<canvas id="chart" width="200" height="70"></canvas>
+	<canvas id="chart"></canvas>
 		</div>
+	
+	
 		<div class="col-md-4">
-			<?php echo "another chart"?>
-		</div>
-	</div>
-		
-		<div class="col-md-4">
-			<a class="btn btn-buynow" href="leave_page.php">Check Bonuses</a>
+			<a class="btn btn-buynow" href="bonus_KPI.php">Check Bonuses</a>
 			<div class="properties-box">
 				<ul class="unstyle">
 					<li><b class="propertyname">Responces will appear</b>-once questionnaire is submitted </li>
-					<li><b class="propertyname">Number of answered questionnaires:</b> num </li>
+					<li style="font-size: 20px;"><b class="propertyname">Number of answered questionnaires:</b>
+						<?php
+	include 'db_connect.php';
+	$point=10;
+	$word= "awesome";
+	$mail = $_SESSION['email'];
+	$qu= "SELECT COUNT(DISTINCT `questionnaire_id`) FROM `tblanswer` WHERE `lec_email` = '$mail'";
+	$res = mysqli_query($conn, $qu);
+	$row = mysqli_fetch_assoc($res);
+	$decode = implode(" ",$row);
+	
+	?>
+<?php print_r($decode);?></li>
 					<li><b class="propertyname"></b> </li>
+					
 				</ul>
 			</div>
 		</div>
 	</div>
 </div>
-								
+
+
+
 
 
 
@@ -153,70 +167,88 @@
 		</div>
 	</div>
 </div>
-<?
+<?php
 	include 'db_connect.php';
-	$query = $conn->query("SELECT question_id, answer FROM tblanswer GROUP BY question_id");
-	print_r($query);
-	foreach($query as $data)
+	$mail = $_SESSION['email'];
+	$query = "SELECT * FROM `tblanswer` WHERE `lec_email` = '$mail' GROUP BY `id`";
+	$result = mysqli_query($conn, $query);
+	
+	foreach ($result as $data) 
 	{
-		$question_id[] = $data['question_id'];
-		$answer[] = $data['answer'];
+		$ans[] =$data['answer'];
+		$que[] =$data['questionnaire_id'];
 	}
 
-php?>
+?>
+<?php
+	include 'db_connect.php';
+	$mail = $_SESSION['email'];
+	$query = "SELECT * FROM `tblanswer` WHERE `lec_email` = '$mail' GROUP BY `id`";
+	$result = mysqli_query($conn, $query);
+	
+	foreach ($result as $data) 
+	{
+		$a[] =$data['answer'];
+		$q[] =$data['questionnaire_id'];
+	}
+
+?>
+
+<!-- //original query// -->
+<!--  "SELECT COUNT(`answer`) FROM `tblanswer` WHERE `answer`= 'awesome' AND `answer`='good' AND `answer`='great' AND `lec_email` = '$mail'"; -->
 <!-- Load JS here for greater good =============================-->
 <script src="js/jquery-.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/anim.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 <script>
-	
-		const ctx = document.getElementById('chart').getContext('2d');
-		const myChart = new Chart(ctx, {
+	  const labels = <?php echo json_encode($ans) ?>;
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: 'Student Responses',
+      data: <?php echo json_encode($que) ?>,
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 205, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(201, 203, 207, 0.2)'
+      ],
+      borderColor: [
+        'rgb(255, 99, 132)',
+        'rgb(255, 159, 64)',
+        'rgb(255, 205, 86)',
+        'rgb(75, 192, 192)',
+        'rgb(54, 162, 235)',
+        'rgb(153, 102, 255)',
+        'rgb(201, 203, 207)'
+      ],
+      borderWidth: 1
+    }]
+  };
+
+  const config = {
     type: 'bar',
-    data: {
-        labels: <?php echo json_encode($questionnaire_id) ?>,
-        datasets: [{
-            label: 'Different Questionnaire Set Performance',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
+    data: data,
     options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
+      scales: {
+        y: {
+          beginAtZero: true
         }
-    }
-});
-	const labels = Utils.months({count: 7});
-const data = {
-  labels: labels,
-  datasets: [{
-    label: 'My First Dataset',
-    data: [65, 59, 80, 81, 56, 55, 40],
-    fill: false,
-    borderColor: 'rgb(75, 192, 192)',
-    tension: 0.1
-  }]
-};
+      }
+    },
+  };
+
+  var myChart = new Chart(
+    document.getElementById('chart'),
+    config
+  );
+		
 </script>
+
 </body>
 </html>

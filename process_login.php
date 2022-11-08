@@ -27,6 +27,7 @@ if (isset($_SESSION['email'])) {
 	  			if($row['user_type'] == "employee")
 	  			{ 
 	  				$_SESSION['email']=$row['email'];
+	  				$_SESSION['fname']=$row['firstname'];
 	  				$_SESSION['employee_id']=$row['employee_id'];
 	  				$_SESSION['available_days']=$row['available_days'];
 	  				header("location:leave_policy.php");
