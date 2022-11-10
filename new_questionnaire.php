@@ -47,7 +47,7 @@
         <div id="navbar-collapse-02" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 
-                <li class="propClone"><a href="admin_interface.php">Requested Leaves</a></li>
+                <li class="propClone"><a href="questionnaire_report.php">Print Report</a></li>
                 <li class="propClone"><a href="list_questionnaires.php">Questionnaire List</a></li>
                 <li class="propClone"><a href="employee_details.php">Manage Employee Details</a></li>
                 <li class="propClone"><a href="logout.php" name="logout">Logout</a></li>

@@ -268,7 +268,7 @@ I've added a few comments on why we're using certain properties
 					$decode = implode(" ",$row);
 					
 			?>
-			<lable style= "font-size: 30px;"> <?php print_r($decode);?> KSH</label>
+			<lable style= "font-size: 30px;">- <?php print_r($decode);?> KSH</label>
       </div>
     </div>
     <br>
@@ -282,14 +282,17 @@ I've added a few comments on why we're using certain properties
 					$point=100;
 					$word= "awesome";
 					$mail = $_SESSION['email'];
-					$qu= "SELECT DISTINCT(`questionnaire_id`) FROM `tblanswer` WHERE `answer`= 'awesome' AND `lec_email` = '$mail'";
+					$qu= "SELECT DISTINCT(`questionnaire_id`) FROM `tblanswer` WHERE `answer`= 'bad' AND `lec_email` = '$mail'";
 					$res = mysqli_query($conn, $qu);
 					$row = mysqli_fetch_assoc($res);
-					// $decode = implode(" ",$row);
-					echo $row['questionnaire_id'];
+					// next query
+					$que = $row['questionnaire_id']; 
+					$qu_two = "SELECT title FROM tblquestionnaire WHERE `id` = '$que'";
+					$res_two = mysqli_query($conn, $qu_two);
+					$row_two = mysqli_fetch_assoc($res_two);
 
 			?>
-			<lable style= "font-size: 30px;"> <?php print_r($decode);?> </label>
+			<lable style= "font-size: 30px;"> <?php echo $row_two['title'];?> </label>
       </div>
     </div>
     <div class="col-md-4">
@@ -400,19 +403,23 @@ I've added a few comments on why we're using certain properties
 	$q= "SELECT COUNT(`answer`) FROM `tblanswer` WHERE `answer`= 'awesome' AND `lec_email` = '$mail'";
 	$r = mysqli_query($conn, $q);
 	$result = mysqli_query($conn, $query);
-	$row = mysqli_fetch_assoc($r);
-	$decode = print_r(implode(" ",$row));
+	$row_row = mysqli_fetch_assoc($r);
+	
+
+	$decode = print_r(implode(" ",$row_row));
 
 	
 	foreach ($result as $data) 
 	{
 		$ans[] =$data['answer'];
 		$que[] =$data['questionnaire_id'];
+		
 	}
-	foreach($row as $data)
+	foreach($row_row as $data)
 	{
 		$a[] =$data;
 	}
+	
 
 ?>
 
@@ -425,12 +432,12 @@ I've added a few comments on why we're using certain properties
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 <script>
-	const labels = <?php echo json_encode($a)?>;
+	const labels = <?php echo json_encode($ans)?>;
   const data = {
     labels: labels,
     datasets: [{
       label: 'Student Responses',
-      data: <?php echo json_encode($que) ?>,
+      data: <?php echo json_encode($a, JSON_NUMERIC_CHECK)?>,
       backgroundColor: [
       'rgb(255, 99, 132)',
       'rgb(54, 162, 235)',
